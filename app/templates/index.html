@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ data.web.title }}</title>
+
+    <link rel="icon" href="https://gravatar.loli.net/avatar/f56f1939ffa0ba96723ac4286520f881?s=165" sizes="192x192"/>
+
+    <meta name="keywords" content="{{ data.web.keywords }}">
+    <meta name="description" content="{{ data.web.description }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+</head>
+<body>
+<div class="container">
+    <div class="row header-box">
+        <div class="col-md-8">
+            <h1><a href="/" style="text-decoration: none">{{ data.web.title }}</a></h1>
+        </div>
+        <div class="col-md-4">
+            <p><a target="_blank" href="https://blog.otakuzx.com">MY BLOG</a></p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-8">
+            {% if threads|length == 0 %}
+                No post found!
+            {% endif %}
+            {% for item in threads %}
+                <div class="quote" itemscope="" itemtype="http://schema.org/CreativeWork">
+                    <a target="_blank" href="{{ item.post_url }}"><h5>【{{ item.category }}】 {{ item.title }}</h5></a>
+                    <span style="font-size: 15px" class="text" itemprop="text">{{ item.summary }}</span>
+                    <span>post {{ item.publish_time }},
+                        by <small class="author" itemprop="author">{{ item.author_name }}</small>
+                    </span>
+                </div>
+            {% endfor %}
+            <nav>
+                <ul class="pager">
+                    {% if page > 2 %}
+                        <li class="previous">
+                            <a href="/?page={{ page - 2 }}&category={{ cur_categpry }}"><span
+                                    aria-hidden="true">←</span> Previous</a>
+                        </li>
+                    {% endif %}
+                    {% if threads|length != 0 %}
+                        <li class="next">
+                            <a href="/?page={{ page }}&category={{ cur_categpry }}">Next <span
+                                    aria-hidden="true">&rarr;</span></a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </nav>
+        </div>
+        <div class="col-md-4 tags-box" style="padding-bottom: 100px">
+            <h2>Categorys</h2>
+            {% for item in data.categorys %}
+                <span class="tag-item">
+                    <!--<a class="tag" style="font-size: {{ item.size }}px"-->
+                    <a class="tag" style="font-size: 26px"
+                       href="?page=1&category={{ item.category }}">{{ item.category }}</a>
+                </span>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+<footer class="footer" style="background: none">
+    <div class="container">
+        <p class="text-muted text-center">
+            {{ data.web.description }}
+        </p>
+        <p class="copyright">
+            Made with <span class='sh-red'>❤</span> by <a href="https://blog.otakuzx.com">nauyxs'blog</a> /
+            views: {{ data.people }} / 收录: {{ data.task_count }} / 文章: {{ data.thread_count }}
+        </p>
+    </div>
+</footer>
+</body>
+</html>

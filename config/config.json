@@ -1,0 +1,20 @@
+{
+  "process": 10,
+  "db": {
+    "host": "localhost",
+    "port": 3306,
+    "user": "数据库用户名",
+    "pass": "数据库密码",
+    "dbnm": "数据库名"
+  },
+  "categorys": [
+    "资讯"
+  ],
+  "web": {
+    "title": "title",
+    "icon": "https://gravatar.loli.net/avatar/f56f1939ffa0ba96723ac4286520f881?s=165",
+    "keywords": "keywords",
+    "description": "description",
+    "version": 20220121
+  }
+}
